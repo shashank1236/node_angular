@@ -1,0 +1,52 @@
+<!Doctype html>
+<html>
+	<head>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="p-4">
+			<h3>Add Students</h3>
+			<form method="post" action="add">
+				<div class="mb-3">
+					<label for="name" class="form-label">Student Name</label>
+					<input type="text" class="form-control" name="name" id="name">
+				</div>
+				<div class="mb-3">
+					<label for="mail" class="form-label">Student Mail</label>
+					<input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelp">
+				</div>
+				<div class="mb-3">
+					<label for="phone" class="form-label">Phone</label>
+					<input type="text" class="form-control" name="phone" id="phone">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<div class="p-4">
+			<h3>Students List</h3>
+			<table class="table table-striped table-hover table-bordered">
+				<thead class="table-dark">
+			    	<tr>
+				     	<th>#</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Action</th>
+				   </tr>
+			  	</thead>
+				<% for(var i=0; i < data.length; i++) { %>
+				   	<tr>
+						<td><%= data[i].id %></td>
+						<td><%= data[i].name %></td>
+						<td><%= data[i].email %></td>
+						<td><%= data[i].phone %></td>
+						<td>
+							<a href="edit/<%= data[i].id %>" style="padding-right: 15px">Edit</a>
+							<a href="delete/<%= data[i].id%>">Delete</a>
+						</td>
+				   	</tr>
+				<% } %>
+			</table>
+		</div>
+	</body>
+</html>

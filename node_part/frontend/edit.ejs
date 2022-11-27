@@ -1,0 +1,28 @@
+<!Doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="./css/bootstrap.min.css"/>
+	</head>
+	<body>
+		<div class="p-4">
+			<h3>Edit Students</h3>
+			<form method="post" action="update">
+				<div class="mb-3">
+					<label for="name" class="form-label">Student Name</label>
+					<input type="text" class="form-control" name="name" value="<%= data.id %>" id="name">
+				</div>
+				<div class="mb-3">
+					<label for="mail" class="form-label">Student Mail</label>
+					<input type="email" class="form-control" name="mail" value="<%= data.email %>" id="mail" aria-describedby="emailHelp">
+				</div>
+				<div class="mb-3">
+					<label for="phone" class="form-label">Phone</label>
+					<input type="text" class="form-control" name="phone" value="<%= data.phone %>" id="phone">
+				</div>
+				<button type="submit" class="btn btn-primary">Edit</button>
+				<button type="submit" class="btn btn-primary">Cancel</button>
+			</form>
+		</div>
+	</body>
+</html>
+		
