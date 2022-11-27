@@ -1,12 +1,13 @@
+<base href="/">
 <!Doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" href="./css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css"/>
 	</head>
 	<body>
 		<div class="p-4">
 			<h3>Edit Students</h3>
-			<form method="post" action="update">
+			<form method="post" action="update/<%= data.id %>">
 				<div class="mb-3">
 					<label for="name" class="form-label">Student Name</label>
 					<input type="text" class="form-control" name="name" value="<%= data.id %>" id="name">
@@ -19,8 +20,8 @@
 					<label for="phone" class="form-label">Phone</label>
 					<input type="text" class="form-control" name="phone" value="<%= data.phone %>" id="phone">
 				</div>
-				<button type="submit" class="btn btn-primary">Edit</button>
-				<button type="submit" class="btn btn-primary">Cancel</button>
+				<button type="submit" class="btn btn-primary">Update</button>
+				<button type="submit" onclick="event.preventDefault(); window.location.href = '/'" class="btn btn-primary">Cancel</button>
 			</form>
 		</div>
 	</body>

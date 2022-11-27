@@ -3,6 +3,7 @@ const app = express();
 const path = require('path')
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const { body, validationResult } = require('express-validator');
 
 const pool = mysql.createPool({
   host     : 'localhost',
@@ -23,11 +24,9 @@ app.set('views','./frontend');
 app.get("/",(req,res) => {
     pool.getConnection((err, connection) => {
         if(err) throw err;
-        // console.log('connected as id ' + connection.threadId);
         connection.query('SELECT * from student', (err, rows) => {
-            connection.release(); // return the connection to pool
+            connection.release();
             if(err) throw err;
-            // console.log('The data from users table are: \n', rows);
             res.render('first_view', {data: rows});
         });
     }); 
@@ -36,18 +35,39 @@ app.get("/",(req,res) => {
 app.get('/edit/:id', function(req, res){
    pool.getConnection((err, connection) => {
         if(err) throw err;
-        // console.log('connected as id ' + connection.threadId);
         connection.query('SELECT * from student WHERE id = ' + req.params.id, (err, rows) => {
-            connection.release(); // return the connection to pool
+            connection.release();
             if(err) throw err;
-            // console.log('The data from users table are: \n', rows);
             res.render('edit', {data: rows[0]});
         });
     }); 
 });
 
+app.post('/update/:id', function(req, res){
+   pool.getConnection((err, connection) => {
+        if(err) throw err;
+        // console.log('connected as id ' + connection.threadId);
+        connection.query(`UPDATE student set name='${req.body.name}', email='${req.body.mail}', phone='${req.body.phone}' WHERE id = ` + req.params.id, (err, rows) => {
+            connection.release(); // return the connection to pool
+            if(err) throw err;
+            res.redirect('/edit/' + req.params.id);
+        });
+    }); 
+});
+
+app.get('/delete/:id', function(req, res){
+   pool.getConnection((err, connection) => {
+        if(err) throw err;
+        // console.log('connected as id ' + connection.threadId);
+        connection.query(`DELETE FROM student WHERE id = ` + req.params.id, (err, rows) => {
+            connection.release(); // return the connection to pool
+            if(err) throw err;
+            res.redirect('/');
+        });
+    }); 
+});
+
 app.post("/add", (req, res)=> {
-  // console.log(req.body.name);
   pool.getConnection((err, connection) => {
     var sql = `INSERT INTO student (name, email, phone) VALUES ('${req.body.name}', '${req.body.mail}', '${req.body.phone}')`;
     connection.query(sql, function (err, result) {
